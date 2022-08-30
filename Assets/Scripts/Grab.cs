@@ -9,10 +9,13 @@ public class Grab : MonoBehaviour
     public Transform holdParent;
     private GameObject heldObj;
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         DetectHit();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         if (heldObj != null)
         {
             MoveObject();
@@ -29,8 +32,10 @@ public class Grab : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range))
                 {
-                    Debug.Log(hit);
-                    PickupObject(hit.transform.gameObject);
+                    if (hit.transform.gameObject.tag == "Robot")
+                    {
+                        PickupObject(hit.transform.gameObject);
+                    }
                 }
             }
             else
@@ -76,23 +81,4 @@ public class Grab : MonoBehaviour
 
         }
     }
-
-    // void OnTriggerEnter(Collider col)
-    // {
-    //     if (col.CompareTag("Robot"))
-    //     {
-    //         Debug.Log(col.gameObject.tag);
-    //     }
-    // }
-
-    // void OnTriggerStay(Collider col)
-    // {
-    //     if (col.CompareTag("Robot"))
-    //     {
-    //         if (Input.GetKey(KeyCode.G))
-    //         {
-    //             Debug.Log("Grabbing " + col.gameObject.tag);
-    //         }
-    //     }
-    // }
 }
