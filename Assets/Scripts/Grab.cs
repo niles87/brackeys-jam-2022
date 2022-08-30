@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Grab : MonoBehaviour
 {
-    public float range = 5f;
-    public float moveForce = 150f;
+    public float range = .4f;
+    public float moveForce = 125;
+    private int layermask = 1 << 6;
     public Transform holdParent;
     private GameObject heldObj;
 
-    void Update() {
+    void Update()
+    {
         DetectHit();
     }
 
@@ -26,11 +28,11 @@ public class Grab : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.magenta, range);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.magenta, range);
             if (heldObj == null)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range))
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layermask))
                 {
                     if (hit.transform.gameObject.tag == "Robot")
                     {
