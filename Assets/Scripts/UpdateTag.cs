@@ -20,12 +20,6 @@ public class UpdateTag : MonoBehaviour
         {
             gameObject.tag = TABLE;
         }
-
-
-        if (gameObject.tag == LOADED_TABLE && Input.GetKeyDown(KeyCode.Return))
-        {
-            gm.LoadRobotRepair();
-        }
     }
 
     void OnCollisionStay(Collision col)
@@ -43,6 +37,18 @@ public class UpdateTag : MonoBehaviour
         if (col.gameObject.CompareTag("Robot"))
         {
             robotOnTable = false;
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // This checks for tag loadedtable and if player presses enter
+            if (gameObject.tag == LOADED_TABLE && Input.GetKeyDown(KeyCode.Return))
+            {
+                gm.LoadRobotRepair();
+            }
         }
     }
 }
